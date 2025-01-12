@@ -1,0 +1,36 @@
+<h2 class="eye-catching-header">Customer Management</h2>
+
+<!-- Search Field -->
+<div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm" (input)="filterCustomers()" placeholder="Search customers..." />
+    <button mat-raised-button color="primary" class="search-button" (click)="filterCustomers()">Search</button>
+</div>
+
+<button mat-raised-button color="accent" class="add-customer-button" (click)="openDialog()">Add Customer</button>
+
+<p-table [value]="filteredCustomers" dataKey="customerID" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="firstName">First Name <p-sortIcon field="firstName"></p-sortIcon></th>
+          <th pSortableColumn="lastName">Last Name <p-sortIcon field="lastName"></p-sortIcon></th>
+          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon></th>
+          <th pSortableColumn="phoneNumber">Phone Number <p-sortIcon field="phoneNumber"></p-sortIcon></th>
+          <th>Actions</th>
+      </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-customer>
+      <tr>
+          <td>{{customer.firstName}}</td>
+          <td>{{customer.lastName}}</td>
+          <td>{{customer.email}}</td>
+          <td>{{customer.address}}</td>
+          <td>{{customer.phoneNumber}}</td>
+          <td class="action-buttons">
+              <button mat-button class="edit-button" (click)="openDialog(customer)">Edit</button>
+              <button mat-button class="delete-button" (click)="deleteCustomer(customer.customerID)">Delete</button>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
